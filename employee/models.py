@@ -10,3 +10,5 @@ class Employee(models.Model):
     email=models.EmailField(unique=True)
     experience=models.PositiveIntegerField(null=True)
 
+    def __str__(self):
+        return self.employee_name
