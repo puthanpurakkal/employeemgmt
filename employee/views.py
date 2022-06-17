@@ -37,7 +37,24 @@ class EmployeeCreateView(View):
     template_name="emp-add.html"
 
     def get(self,request):
-        form=self.from_class()
+        form=self.form_class()
         return render(request,self.template_name,{"form":form})
 
+    def post(self,request):
+        form=self.form_class(request.POST)
+        print("values in request.POST")
+        print(request.POST)
+        if form.is_valid():
+            print("cleaned_data")
+            print(form.cleaned_data)
+            print(form.cleaned_data.get("eid"))
+            print(form.cleaned_data.get("employee_name"))
+            print(form.cleaned_data.get("designation"))
+            return render(request,self.template_name,{"form":form})
+        else:
+            return render(request,self.template_name,{"form":form})
 
+class person:
+    def __init__(self,n1):
+        print("here")
+p=person(10)
