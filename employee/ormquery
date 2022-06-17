@@ -1,0 +1,5 @@
+Employee.objects.create(eid="emp_109",employee_name="jithin",designation="hr",salary=40000,email="jithin@gmail.com",experience=2)
+
+
+retrieving objects
+qs=Employee.objects.all()
