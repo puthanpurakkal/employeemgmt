@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.views import View
 from employee.forms import EmployeeForm
-
+from django.contrib import messages
 # Create your views here.
 # def index(request):
 #     return render(request,"home.html")
@@ -50,8 +50,10 @@ class EmployeeCreateView(View):
             print(form.cleaned_data.get("eid"))
             print(form.cleaned_data.get("employee_name"))
             print(form.cleaned_data.get("designation"))
+            messages.success(request,"profile hasbeen added")
             return render(request,self.template_name,{"form":form})
         else:
+            messages.error(request,"prfile adding failed")
             return render(request,self.template_name,{"form":form})
 
 class person:
