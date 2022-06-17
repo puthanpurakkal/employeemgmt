@@ -1,8 +1,7 @@
 
 from django.shortcuts import render
 from django.views import View
-from django.http import HttpResponse
-
+from employee.forms import EmployeeForm
 
 # Create your views here.
 # def index(request):
@@ -32,3 +31,13 @@ class RegistrationView(View):
         print(request.POST.get("u_name"))
         print(request.POST.get("pwd"))
         return render(request,"reg.html")
+
+class EmployeeCreateView(View):
+    form_class=EmployeeForm
+    template_name="emp-add.html"
+
+    def get(self,request):
+        form=self.from_class()
+        return render(request,self.template_name,{"form":form})
+
+
