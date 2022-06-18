@@ -1,4 +1,6 @@
-Employee.objects.create(eid="emp_109",employee_name="jithin",designation="hr",salary=40000,email="jithin@gmail.com",experience=2)
+from employee.models import Employee
+
+Employee.objects.create(eid="emp_104",employee_name="anu",designation="developer",salary=20000,email="anu234@gmail.com",experience=1)
 
 
 retrieving objects
@@ -10,8 +12,11 @@ qs=Employee.objects.all()
 qs=Employee.objects.filter(designation="developer")
 print(qs)
 
-
-qs=Employee.objects.filter(salary__gte=24000)
+field lookup
+qs=Employee.objects.filter(salary__gte=24000)   greaterthan or equal
+qs=Employee.objects.filter(salary__lte=24000)   lessthan or equal
+qs=Employee.objects.filter(salary__gt=24000)    greaterthan
+qs=Employee.objects.filter(salary__lt=24000)    lessthan
 
  qs=Employee.objects.all()exclude(designation="developer")
 
@@ -31,6 +36,10 @@ qs=Employee.objects.get(eid="emp_101")
 =>qs=Employee.objects.get(eid="emp_104")
 >>> qs.delete()
 (1, {'employee.Employee': 1})
+
+qs=Employee.objects.filter(designation__iexact="developer")case insensitive matching
+
+qs=Employee.objects.filter(employee_name__icontains="ar")
 
 
 
