@@ -53,7 +53,7 @@
 #             messages.success(request,"profile hasbeen added")
 #             return render(request,self.template_name,{"form":form})
 #         else:
-#             messages.error(request,"prfile adding failed")
+#             messages.error(request,"profile adding failed")
 #             return render(request,self.template_name,{"form":form})
 #
 # class person:
@@ -70,12 +70,12 @@ from django.contrib import messages
 
 class EmployeeCreateView(View):
 
-    def get(self,request,*args,**kwargs):
-        form=EmployeeCreateForm()
+    def get(self, request, *args, **kwargs):
+        form = EmployeeCreateForm()
         return render(request, "emp-add.html", {"form": form})
 
-    def post(self,request,*args,**kwargs):
-        form=EmployeeCreateForm(request.POST)
+    def post(self, request, *args, **kwargs):
+        form= EmployeeCreateForm(request.POST)
 
         if form.is_valid():
             print(form.cleaned_data)
@@ -87,16 +87,23 @@ class EmployeeCreateView(View):
                 email=form.cleaned_data.get("email"),
                 experience=form.cleaned_data.get("experience")
             )
-            messages.success(request,"employee hasbeen added")
+            messages.success(request, "employee has been added")
             return redirect("emp-create")
         else:
             messages.error(request, "employee added failed")
             return render(request, "emp-add.html", {"form": form})
 
 
+class EmployeeListView(View):
+    def get(self, request, *args, **kwargs):
+        qs = Employee.objects.all()
+        return render(request, "emp-list.html", {"employees": qs})
 
+class EmployeeDetailView(View):
+    def get(self,request, *args, **kwargs):
 
-
+        qs=Employee.objects.get(eid=kwargs.get("emp_id"))
+        return render(request, "emp-detail.html",{"employee":qs})
 
 
 
