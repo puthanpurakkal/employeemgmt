@@ -3,3 +3,34 @@ Employee.objects.create(eid="emp_109",employee_name="jithin",designation="hr",sa
 
 retrieving objects
 qs=Employee.objects.all()
+
+1.create()
+2.all()
+3.filter()
+qs=Employee.objects.filter(designation="developer")
+print(qs)
+
+
+qs=Employee.objects.filter(salary__gte=24000)
+
+ qs=Employee.objects.all()exclude(designation="developer")
+
+ qs=Employee.objects.filter(designation="developer",salary__gt=24000)
+
+qs=Employee.objects.all().exclude(designation="developer")
+
+=>ger()
+qs=Employee.objects.get(eid="emp_101")
+
+
+=>change
+=>qs=Employee.objects.get(eid="emp_101")
+=>qs.experience=2
+=>qs.save()
+
+=>qs=Employee.objects.get(eid="emp_104")
+>>> qs.delete()
+(1, {'employee.Employee': 1})
+
+
+
