@@ -101,6 +101,7 @@ class EmployeeListView(View):
 
 class EmployeeDetailView(View):
     def get(self,request, *args, **kwargs):
+        # kwargs={emp_id:emp_100}
 
         qs=Employee.objects.get(eid=kwargs.get("emp_id"))
         return render(request, "emp-detail.html",{"employee":qs})
