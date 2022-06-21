@@ -26,8 +26,8 @@
                    <td>{{emp.email}}</td>
                    <td>
                        <a href="{%url "emp-detail" emp.eid%}">View</a>
-                       <a href="">Edit</a>
-                       <a href="">Delete</a>
+                       <a href="{%url "emp-detail" emp.eid%}">Edit</a>
+                       <a href="{%url "emp-detail" emp.eid%}">Delete</a>
                    </td>
                </tr>
                {%endfor%}
