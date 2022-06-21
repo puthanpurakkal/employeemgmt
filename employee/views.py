@@ -78,7 +78,7 @@ class EmployeeCreateView(View):
         form= EmployeeCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            # print(form.cleaned_data)
+              # print(form.cleaned_data)
             # Employee.objects.create(
             #     eid=form.cleaned_data.get("eid"),
             #     employee_name=form.cleaned_data.get("employee_name"),
@@ -106,28 +106,33 @@ class EmployeeDetailView(View):
         return render(request, "emp-detail.html",{"employee":qs})
 
 class EmployeeEditView(View):
-    def get(self,request,*args,**kwargs):
-        eid=kwargs.get("eid_id")
+    def get(self,request, *args, **kwargs):
+        eid=kwargs.get("e_id")
         employee=Employee.objects.get(eid=eid)
         form=EmployeeCreateForm(instance=employee)
         return render(request,"emp-edit.html",{"form":form})
 
-    def post(self,request,*args,**kwargs):
-        eid = kwargs.get("emp_id")
-        employee = Employee.objects.get(eid=eid)
-        form = EmployeeCreateForm(request.POST, instance=employee)
+    def post(self,request, *args, **kwargs):
+        eid=kwargs.get("e_id")
+        employee=Employee.objects.get(eid=eid)
+        form=EmployeeCreateForm(request.POST,instance=employee)
         if form.is_valid():
             form.save()
             messages.success(request, "employee edited successfully")
             return redirect("emp-add")
         else:
-            messages.error(request, "employee edited unsuccessfully")
+            messages.error(request, "employee edited failed")
             return render(request, "emp-add.html", {"form": form})
+
 
 class EmployeeDeleteView(View):
     def get(self,request,*args,**kwargs):
-        eid=kwargs.get("emp_id")
+        eid=kwargs.get("e_id")
         employee=Employee.objects.get(eid=eid)
         employee.delete()
         messages.success(request, "employee deleted successfully")
         return redirect("emp-list")
+
+
+
+
