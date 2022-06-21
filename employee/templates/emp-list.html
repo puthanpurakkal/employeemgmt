@@ -9,6 +9,28 @@
 <body>
 
 <div class="container">
+     <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            {%if messages%}
+            {%for msg in messages%}
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Holy guacamole!</strong> {{msg}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {%endif%}
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Holy guacamole!</strong> {{msg}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+            {%endfor%}
+            {%endif%}
+        </div>
+        <div class="col-4"></div>
+    </div>
     <div class="row">
         <div class="col-2"></div>
         <div class="col-8">
@@ -27,7 +49,7 @@
                    <td>
                        <a href="{%url "emp-detail" emp.eid%}">View</a>
                        <a href="{%url "emp-edit" emp.eid%}">Edit</a>
-                       <a href="{%url "emp-delete" emp.eid%}">Delete</a>
+                       <a href="{%url "emp-remove" emp.eid%}">Delete</a>
                    </td>
                </tr>
                {%endfor%}

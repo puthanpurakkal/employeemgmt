@@ -119,7 +119,7 @@ class EmployeeEditView(View):
         if form.is_valid():
             form.save()
             messages.success(request, "employee edited successfully")
-            return redirect("emp-add")
+            return render(request,"emp-add.html",{"form":form})
         else:
             messages.error(request, "employee edited failed")
             return render(request, "emp-add.html", {"form": form})
