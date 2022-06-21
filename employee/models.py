@@ -4,6 +4,7 @@ from django.db import models
 
 class Employee(models.Model):
     eid = models.CharField(max_length=120,primary_key=True)
+    profile_pick = models.ImageField(upload_to="profilepics",null=True)
     employee_name = models.CharField(max_length=120)
     designation = models.CharField(max_length=120)
     salary = models.PositiveIntegerField()
