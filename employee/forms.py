@@ -30,3 +30,12 @@ class EmployeeCreateForm(forms.ModelForm):
     class Meta:
         model = Employee
         fields = "__all__"
+
+        widgets={
+            "eid": forms.TextInput(attrs={"class":"form-control"}),
+            "employee_name": forms.TextInput(attrs={"class":"form-control"}),
+            "designation": forms.TextInput(attrs={"class":"form-control"}),
+            "salary": forms.NumberInput(attrs={"class":"form-control"}),
+            "email": forms.EmailInput(attrs={"class":"form-control"}),
+            "experience": forms.NumberInput(attrs={"class":"form-control"})
+        }
