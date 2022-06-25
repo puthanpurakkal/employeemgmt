@@ -63,10 +63,11 @@
 
 
 from django.shortcuts import render,redirect
-from employee.forms import EmployeeCreateForm
+from employee.forms import EmployeeCreateForm,UserRegistrationForm
 from django.views.generic import View
 from employee.models import Employee
 from django.contrib import messages
+
 
 class EmployeeCreateView(View):
 
@@ -106,33 +107,52 @@ class EmployeeDetailView(View):
         return render(request, "emp-detail.html",{"employee":qs})
 
 class EmployeeEditView(View):
-    def get(self,request, *args, **kwargs):
-        eid=kwargs.get("e_id")
-        employee=Employee.objects.get(eid=eid)
+    def get(self, request, *args, **kwargs):
+        eid = kwargs.get("e_id")
+        employee = Employee.objects.get(eid=eid)
         form=EmployeeCreateForm(instance=employee)
-        return render(request,"emp-edit.html",{"form":form})
+        return render(request, "emp-edit.html", {"form": form})
 
-    def post(self,request, *args, **kwargs):
-        eid=kwargs.get("e_id")
-        employee=Employee.objects.get(eid=eid)
-        form=EmployeeCreateForm(request.POST,instance=employee, files=request.FILES)
+    def post(self, request, *args, **kwargs):
+        eid = kwargs.get("e_id")
+        employee = Employee.objects.get(eid=eid)
+        form = EmployeeCreateForm(request.POST, instance=employee, files=request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, "employee edited successfully")
-            return render(request,"emp-add.html",{"form":form})
+            return render(request, "emp-add.html", {"form": form})
         else:
             messages.error(request, "employee edited failed")
             return render(request, "emp-add.html", {"form": form})
 
 
 class EmployeeDeleteView(View):
-    def get(self,request,*args,**kwargs):
-        eid=kwargs.get("e_id")
-        employee=Employee.objects.get(eid=eid)
+    def get(self, request, *args, **kwargs):
+        eid = kwargs.get("e_id")
+        employee = Employee.objects.get(eid=eid)
         employee.delete()
         messages.success(request, "employee deleted successfully")
         return redirect("emp-list")
 
 
+
+def index(request):
+    return render(request, "base.html")
+
+
+class SignUpView(View):
+    def get(self, request, *args, **kwargs):
+        form = UserRegistrationForm()
+        return render(request, "registration.html", {"form": form})
+
+    def post(self, request, *args, **kwargs):
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"account created successfully")
+            return redirect("signup")
+        else:
+            messages.error(request,"account creation failed")
+            return render(request, "registration.html",{"form":form})
 
 
