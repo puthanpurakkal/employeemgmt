@@ -1,36 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-</head>
-<body>
-<div class="container">
-    <div class="row">
-        <div class="col-4"></div>
+{%extends 'base.html'%}
+{%block body_block%}
 
-        <div class="col-4">
-            <h1> login </h1>
-            <div class="border-primary">
-                <p>login here!</p>
-
-                    <div class="mb-3">
-                        <input type="text" placeholder="username" class="form-control">
-                    </div>
-
-                    <div class="mb-3">
-                        <input type="password" placeholder="password" class="form-control">
-                    </div>
-                <input type="submit">
+<div class="col-lg-5 p-5">
+            <div class="card" style="width: 18rem;">
+                <img src="" class="card-img-top" alt="">
+                <div class="card-body">
+                    <h1><b><i>welcome!!!</i></b></h1>
+            </div>
+                <div>
+                     {%if messages%}
+                     {%for msg in messages%}
+                     {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                     <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong></strong> {{msg}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                     </div>
+                     {%endif%}
+                     {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                         <strong></strong> {{msg}}
+                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                         <i class="bi bi-exclamation-triangle"></i>
+                     </div>
+                     {% endif %}
+                     {%endfor%}
+                     {%endif%}
+                </div>
             </div>
         </div>
-         <div class="col-4"></div>
+        <div class="col-lg-7 px-5" style="border-radius:30px ; background-color: rgb(246, 246, 246);">
+            <h1 class="font-width-bold py-3">LOGIN</h1>
+            <form action="" method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+
+
+                <div class="form-row">
+                    <div class="col-lg-7">
+                    <input type="text" class="form-control my-3 p-3" name="username" id="id_username" placeholder="Username">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-lg-7">
+                        <input type="password" class="form-control my-3 p-3" name="password" id="id_pwd" placeholder="Password">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-lg-7">
+                        <input type="submit">
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 
-</div>
-
-
-</body>
-</html>
+{%endblock%}
