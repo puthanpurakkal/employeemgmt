@@ -1,16 +1,16 @@
 # from django.shortcuts import render
 # from django.views import View
 # from employee.forms import EmployeeCreateForm
-from django.views.generic import View
+# from django.views.generic import View
 
 # from django.contrib import messages
 # # Create your views here.
 # # def index(request):
 # #     return render(request,"home.html")
 # #
-def login(request):
-    return render(request, "login.html")
-#
+# def login(request):
+#     return render(request, "login.html")
+# #
 # # def registration(request):
 # #     return render(request,"reg.html")
 #
@@ -61,24 +61,22 @@ def login(request):
 #     def __init__(self,n1):
 #         print("here")
 # p=person(10)
-
-
-from django.shortcuts import render,redirect
-from employee.forms import EmployeeCreateForm, UserRegistrationForm, LoginForm
 from django.views.generic import View, ListView, DetailView, CreateView
+from django.shortcuts import render, redirect
+from employee.forms import EmployeeCreateForm, UserRegistrationForm, LoginForm
 from employee.models import Employee
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import authenticate, login, logout
 from django.utils.decorators import method_decorator
 
-def signin_required(func):
-    def wrapper(request,*args,**kwargs):
+def signin_required(fn):
+    def wrapper(request, *args, **kwargs):
         if request.user.is_authenticated:
-            return func(request, *args, **kwargs)
+            return fn(request, *args, **kwargs)
         else:
-            messages.error(request,"you must login")
-            return render("signin")
+            messages.error(request, "you must login")
+            return redirect("signin")
     return wrapper
 
 @method_decorator(signin_required,name="dispatch")
@@ -182,12 +180,13 @@ class LoginView(View):
     def post(self, request):
         form = LoginForm(request.POST)
         if form.is_valid():
+
             uname = form.cleaned_data.get("username")
             pwd = form.cleaned_data.get("password")
             user = authenticate(username=uname, password=pwd)
             if user:
                 print("success")
-                login(request,user)
+                login(request, user)
                 return redirect("emp-list")
             else:
                 return render(request, "login.html", {"form": form})
